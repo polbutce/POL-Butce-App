@@ -566,7 +566,8 @@ def generate_analysis_pdf(year, view_type, month, category, df_filtered):
         pdf.cell(30, 6, fix_tr(format_tl(r['actual'])), 1, 0, 'R')
         pdf.cell(30, 6, fix_tr(format_tl(diff)), 1, 1, 'R')
 
-    return bytes(pdf.output())
+    pdf_out = pdf.output()
+    return bytes(pdf_out) if isinstance(pdf_out, (str, bytearray)) else pdf_out
 
 # POP-UP OPEN HELPER
 def open_budget_modal(year, month, budget_id=None):
