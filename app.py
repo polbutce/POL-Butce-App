@@ -492,7 +492,10 @@ def generate_pdf(year, month, items_df):
     pdf.cell(60, 8, fix_tr(f"Tahmini: {format_tl(tot_inc_est - tot_exp_est)}"), 1, 0, 'R')
     pdf.cell(60, 8, fix_tr(f"Gerceklesen: {format_tl(tot_inc_act - tot_exp_act)}"), 1, 1, 'R')
 
-    return bytes(pdf.output())
+    pdf_out = pdf.output()
+    if isinstance(pdf_out, str):
+        return pdf_out.encode('latin1')
+    return bytes(pdf_out)
 
 # PDF Generator (Analiz Filtre Raporu)
 def generate_analysis_pdf(year, view_type, month, category, df_filtered):
